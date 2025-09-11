@@ -34,30 +34,30 @@ export default function CryptoTable() {
 
   const stickyBg = useColorModeValue("white", "gray.800");
 
-  const fetchCoins = async () => {
-    setLoading(true);
-    setError(false);
-
-    // ✅ If cache exists, use it immediately
-    if (coinsCache[page]) {
-      setCoins(coinsCache[page]);
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const data = await getCoins(page, 50);
-      coinsCache[page] = data; // ✅ cache result
-      setCoins(data);
-    } catch (err) {
-      console.error("Error fetching market data", err);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchCoins = async () => {
+      setLoading(true);
+      setError(false);
+
+      // ✅ If cache exists, use it immediately
+      if (coinsCache[page]) {
+        setCoins(coinsCache[page]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await getCoins(page, 50);
+        coinsCache[page] = data; // ✅ cache result
+        setCoins(data);
+      } catch (err) {
+        console.error("Error fetching market data", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCoins();
   }, [page]);
 
@@ -69,7 +69,26 @@ export default function CryptoTable() {
         <Text fontSize="lg" color="red.400" mb={4}>
           Failed to load coins data. Please try again.
         </Text>
-        <Button colorScheme="teal" onClick={fetchCoins}>
+        <Button
+          colorScheme="teal"
+          onClick={() => {
+            setError(false);
+            setLoading(true);
+            // retry fetch inline
+            (async () => {
+              try {
+                const data = await getCoins(page, 50);
+                coinsCache[page] = data;
+                setCoins(data);
+              } catch (err) {
+                console.error("Retry failed", err);
+                setError(true);
+              } finally {
+                setLoading(false);
+              }
+            })();
+          }}
+        >
           Retry
         </Button>
       </Container>
@@ -141,7 +160,9 @@ export default function CryptoTable() {
                 <Td
                   isNumeric
                   color={
-                    coin.price_change_percentage_24h >= 0 ? "green.500" : "red.500"
+                    coin.price_change_percentage_24h >= 0
+                      ? "green.500"
+                      : "red.500"
                   }
                 >
                   {formatPercent(coin.price_change_percentage_24h)}
@@ -157,7 +178,9 @@ export default function CryptoTable() {
                 <Td
                   isNumeric
                   color={
-                    coin.price_change_percentage_30d >= 0 ? "green.500" : "red.500"
+                    coin.price_change_percentage_30d >= 0
+                      ? "green.500"
+                      : "red.500"
                   }
                 >
                   {formatPercent(coin.price_change_percentage_30d)}
@@ -173,7 +196,7 @@ export default function CryptoTable() {
                 <Td isNumeric>{formatCurrency(coin.market_cap)}</Td>
                 <Td isNumeric>{formatCurrency(coin.volume_24h)}</Td>
               </Tr>
-            ))}
+            ))} 
           </Tbody>
         </Table>
       </TableContainer>
