@@ -96,8 +96,12 @@ export default function SeeMorePage() {
                   to={`/coin/${coin.id}`} 
                   _hover={{ textDecoration: "underline", color: "blue.400" }}
                 >
-                    <Image src={coin.image} alt={coin.name} boxSize="24px" />
-                    {coin.name} ({coin.symbol.toUpperCase()})
+                  <Box display="flex" alignItems="center" gap={3}>
+                  <Image src={coin.image} alt={coin.name} boxSize="24px" />
+                  <Text fontWeight="bold">
+                  <Text as="span">{coin.symbol.toUpperCase()}</Text>
+                  </Text>
+                  </Box>            
                     </Link>
                     </Td>
                   

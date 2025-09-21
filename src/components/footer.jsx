@@ -28,7 +28,7 @@ import {
         >
           {/* Brand / Logo */}
           <Text fontWeight="bold" fontSize="lg">
-            CryptoTracker © {new Date().getFullYear()}
+           © {new Date().getFullYear()}Crypto Tracker Built with ❤️ by Your Name Yaqoab.
           </Text>
   
           {/* Footer Nav Links */}
@@ -43,14 +43,14 @@ import {
           <HStack spacing={4}>
             <IconButton
               as="a"
-              href="https://twitter.com"
+              href="https://x.com/YaqoabAbdulmalk"
               aria-label="Twitter"
               icon={<FaTwitter />}
               variant="ghost"
             />
             <IconButton
               as="a"
-              href="https://github.com"
+              href="https://github.com/Yaqoab/cryptotracking"
               aria-label="Github"
               icon={<FaGithub />}
               variant="ghost"

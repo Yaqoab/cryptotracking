@@ -56,7 +56,7 @@ const Details = () => {
       try {
         const data = await getCoinById(id);
         setCoin(data);
-
+        
         const chartData = await getCoinMarketChart(id, "usd", 7);
         setChart(chartData.prices || []);
       } catch (error) {
