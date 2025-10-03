@@ -28,7 +28,7 @@ import {
         >
           {/* Brand / Logo */}
           <Text fontWeight="bold" fontSize="lg">
-           © {new Date().getFullYear()}Crypto Tracker Built with ❤️ by Your Name Yaqoab.
+           © {new Date().getFullYear()}Crypto Tracker Built with ❤️ by Yaqoab.
           </Text>
   
           {/* Footer Nav Links */}
